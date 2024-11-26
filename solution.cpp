@@ -43,7 +43,7 @@
  */
 std::vector<File *> FileAVL::query(size_t min, size_t max)
 {
-    std::vector<File *> result;
+    std::vector<File *> result = {};
     // root_
     //  Your code here.
 
@@ -60,7 +60,7 @@ void FileTrie::addFile(File *f)
 std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefix) const
 {
     // convert to lowercase
-    std::unordered_set<File *> stub;
+    std::unordered_set<File *> stub = {};
     return stub;
 }
 

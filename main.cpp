@@ -2,5 +2,5 @@
 
 int main()
 {
-    std::cout << "my stomach hurts a lot :/";
+    std::cout << "Hello World";
 }
