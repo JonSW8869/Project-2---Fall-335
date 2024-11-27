@@ -7,29 +7,8 @@
 // You must declare them "inline" | declare & implement them at the top of this file, before query()
 // Below query(), implement and document all methods declared in FileTrie.hpp
 
-// two approaches
-/*
-1. add all the nodes into a vector and then sort it by file size
-2. then push the query vector with the given sizes
-
-1.Search for all node given a vertain key and return the node
-2. Call the function for min > max
-*/
-
-// avl tree traversal
-// Node *nodeTraverse(Node *&root)
+// File *searchFile(Node *root)
 // {
-//     if (root == nullptr)
-//     {
-//         return;
-//     }
-//     nodeTraverse(root->left_);
-// }
-
-// std::vector<File *> allNodes(Node *&root)
-// {
-//     std::vector<File *> result = {};
-//     if ()
 // }
 
 /**
@@ -43,7 +22,13 @@
  */
 std::vector<File *> FileAVL::query(size_t min, size_t max)
 {
+    // search the tree and push the nodes that have a size inbetween min and max into the vector
     std::vector<File *> result = {};
+    // if (searchFile(root_)->getSize() > min && searchFile(root_)->getSize() < max)
+    // {
+    //     result.push_back(searchFile(root_));
+    // }
+
     // root_
     //  Your code here.
 
@@ -60,7 +45,7 @@ void FileTrie::addFile(File *f)
 std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefix) const
 {
     // convert to lowercase
-    std::unordered_set<File *> stub = {};
+    std::unordered_set<File *> stub;
     return stub;
 }
 
