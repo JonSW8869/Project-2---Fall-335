@@ -57,14 +57,46 @@ std::vector<File *> FileAVL::query(size_t min, size_t max)
 
 // FileTrie implementation
 
+// the trie tree is composed of a map <char c, FileTreeNode*>.
+// Each node contains a set.
+
+// To add a file,
+/*
+First: we add the fileName into head's matching set
+Then we start iterating through fileName and check the iterator's next
+
+We add the fileName into matching;
+When the itrerator reachs a point where inside ptr->next.find(c) == ptr->next.end() [the c key is not found inside next]
+        then we create a new FileTreeNode with matching only having that file and next's only key is the last char in fileName
+
+
+SUDOCODE:
+string name = f.getName() -> lowercased;
+FileTreeNode* ptr = head;
+ptr.matching.insert(f);
+for(char c : name)
+{
+    navigate to next node
+    if(key not found in next)
+        create new node
+    ptr->matching.insert(f);
+}
+*/
 void FileTrie::addFile(File *f)
 {
     // convert to lowercase
-    // FileTrieNode *ptr = head;
-    // std::transform(f->getName().begin(), f->getName().end(), f->getName().begin(), ::towlower);
-    // for (char c : f->getName())
-    // {
-    // }
+    FileTrieNode *ptr = head;
+    std::string fName = f->getName();
+    std::transform(fName.begin(), fName.end(), fName.begin(), ::towlower);
+    for (char c : fName)
+    {
+        // does not find
+        if (ptr->matching.find(f) == ptr->matching.end())
+        {
+            ptr->matching.insert(f);
+        }
+        // iterate down the list until we do not find one which then creates a new node
+    }
 }
 
 std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefix) const
