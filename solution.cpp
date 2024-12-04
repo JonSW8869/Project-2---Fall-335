@@ -109,9 +109,33 @@ void FileTrie::addFile(File *f)
     }
 }
 
+/*
+    Traverse the map until we have we have the node = next[last char of prefix, node->matching]
+    we then collect that ptr->matching and return it.
+*/
+
 std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefix) const
 {
-    std::unordered_set<File *> result; // To store the final results
+    std::unordered_set<File *> result = {};
+    std::string pre = prefix;
+    std::transform(pre.begin(), pre.end(), pre.begin(), ::tolower);
+    FileTrieNode *ptr = head;
+    if (!ptr)
+    {
+        return result;
+    }
+    for (char c : pre)
+    {
+        if (ptr->next.find(c) == ptr->next.end())
+        {
+            return result;
+        }
+        ptr = ptr->next[c];
+    }
+    if (ptr)
+        result.insert(ptr->matching.begin(), ptr->matching.end());
+
     return result;
 }
 FileTrie::~FileTrie() {}
+

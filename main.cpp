@@ -28,14 +28,14 @@ int main()
     fileTrie.addFile(file5);
 
     // // Test case 1: Prefix "exa"
-    // std::cout << "Files with prefix 'exa':\n";
-    // auto filesWithExa = fileTrie.getFilesWithPrefix("exa");
+    std::cout << "Files with prefix 'exa':\n";
+    auto filesWithExa = fileTrie.getFilesWithPrefix("exa");
     // for (const auto &file : filesWithExa)
     // {
     //     std::cout << file->getName() << "\n";
     // }
 
-    // // Test case 2: Prefix "ExAm"
+    // // // Test case 2: Prefix "ExAm"
     // std::cout << "\nFiles with prefix 'ExAm':\n";
     // auto filesWithExam = fileTrie.getFilesWithPrefix("ExAm");
     // for (const auto &file : filesWithExam)
@@ -43,7 +43,7 @@ int main()
     //     std::cout << file->getName() << "\n";
     // }
 
-    // // Test case 3: Prefix "test"
+    // // // Test case 3: Prefix "test"
     // std::cout << "\nFiles with prefix 'test':\n";
     // auto filesWithTest = fileTrie.getFilesWithPrefix("test");
     // for (const auto &file : filesWithTest)
@@ -51,7 +51,7 @@ int main()
     //     std::cout << file->getName() << "\n";
     // }
 
-    // // Test case 4: Prefix "noMatch"
+    // // // Test case 4: Prefix "noMatch"
     // std::cout << "\nFiles with prefix 'noMatch':\n";
     // auto filesWithNoMatch = fileTrie.getFilesWithPrefix("noMatch");
     // if (filesWithNoMatch.empty())
