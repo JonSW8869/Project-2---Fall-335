@@ -7,7 +7,7 @@
 // You must declare them "inline" | declare & implement them at the top of this file, before query()
 // Below query(), implement and document all methods declared in FileTrie.hpp
 
-void queryHelper(Node *node, size_t min, size_t max, std::vector<File *> &result)
+inline void queryHelper(Node *node, size_t min, size_t max, std::vector<File *> &result)
 {
     if (!node)
         return;
@@ -57,6 +57,8 @@ std::vector<File *> FileAVL::query(size_t min, size_t max)
 
 // FileTrie implementation
 
+FileTrie::FileTrie() {}
+
 // the trie tree is composed of a map <char c, FileTreeNode*>.
 // Each node contains a set.
 
@@ -76,36 +78,40 @@ FileTreeNode* ptr = head;
 ptr.matching.insert(f);
 for(char c : name)
 {
-    navigate to next node
     if(key not found in next)
         create new node
+    else (key is found in next)
+    {
+
+        ptr->next.insert(std::makepair(c, ptr))
+    }
     ptr->matching.insert(f);
 }
 */
 void FileTrie::addFile(File *f)
 {
     // convert to lowercase
-    FileTrieNode *ptr = head;
-    std::string fName = f->getName();
-    std::transform(fName.begin(), fName.end(), fName.begin(), ::towlower);
-    for (char c : fName)
+    std::string filename = f->getName();
+    std::transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+    if (!head)
     {
-        // does not find
-        if (ptr->matching.find(f) == ptr->matching.end())
+        head = new FileTrieNode();
+    }
+    FileTrieNode *ptr = head;
+    for (char c : filename)
+    {
+        if (ptr->next.find(c) == ptr->next.end())
         {
-            ptr->matching.insert(f);
+            ptr->next.insert(std::make_pair(c, new FileTrieNode()));
         }
-        // iterate down the list until we do not find one which then creates a new node
+        ptr->matching.insert(f);
+        ptr = ptr->next[c];
     }
 }
 
 std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefix) const
 {
-    // convert to lowercase
-    std::unordered_set<File *> stub;
-    return stub;
+    std::unordered_set<File *> result; // To store the final results
+    return result;
 }
-
-FileTrie::~FileTrie()
-{
-}
+FileTrie::~FileTrie() {}
