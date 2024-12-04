@@ -1,3 +1,4 @@
+
 #include "FileAVL.hpp"
 #include "File.hpp"
 #include "FileTrie.hpp"
@@ -44,18 +45,23 @@ inline void queryHelper(Node *node, size_t min, size_t max, std::vector<File *> 
 std::vector<File *> FileAVL::query(size_t min, size_t max)
 {
     std::vector<File *> result = {};
-    if (min > max) // Fix the parameters to ensure min is less than max
+    if (min > max)
     {
         std::swap(min, max);
     }
-    queryHelper(root_, min, max, result); // Call helper function
+    queryHelper(root_, min, max, result);
     return result;
 }
 
-///////////////// FileTrie implementation /////////////////
+// FileTrie implementation
 
 FileTrie::FileTrie() {}
+
 /*
+// the trie tree is composed of a map <char c, FileTreeNode*>.
+// Each node contains a set.
+
+ To add a file,
 
 First: we add the fileName into head's matching set
 Then we start iterating through fileName and check the iterator's next
@@ -75,11 +81,14 @@ for(char c : name)
         create new node
     else (key is found in next)
     {
+
         ptr->next.insert(std::makepair(c, ptr))
     }
     ptr->matching.insert(f);
+    ptr = ptr->next[c]
 }
 */
+
 void FileTrie::addFile(File *f)
 {
     // convert to lowercase
@@ -115,24 +124,24 @@ std::unordered_set<File *> FileTrie::getFilesWithPrefix(const std::string &prefi
     std::transform(pre.begin(), pre.end(), pre.begin(), ::tolower);
     FileTrieNode *ptr = head;
 
-    // Check if head is empty and return blank if so
+    // Checks if head is empty, if so, return a blank
+    if (!ptr)
     {
         return result;
     }
     for (char c : pre)
     {
-        // If character is not found, then the prefix doesn't exist inside the tree so we return a blank
+        // if c is not found in the tree, then the prefix doesn't exist so we return a blank
         if (ptr->next.find(c) == ptr->next.end())
         {
             return result;
         }
-        ptr = ptr->next[c]; // Traverse to the next correspnding prefix
+        ptr = ptr->next[c];
     }
-    // Insert all matching files into result
+    // Insert the ptr's matching into the result
     if (ptr)
         result.insert(ptr->matching.begin(), ptr->matching.end());
 
     return result;
 }
 FileTrie::~FileTrie() {}
-
